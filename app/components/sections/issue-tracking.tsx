@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { Features } from '../features';
 import { 
   ScanSearch, 
@@ -24,6 +25,7 @@ export const IssueTracking = () => {
         image='/image/issues.webp'
         imageSize='large'
         text='MillSync utilizes Deep Learning to synchronize the IISc-patented reactor with real-time sugar mill operations, ensuring 99.97% hydrogen purity.'
+        maxWidth='80rem' // Fixed TypeScript error by adding required maxWidth
       />
       <Features.Grid
         features={[
