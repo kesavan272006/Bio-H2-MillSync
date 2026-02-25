@@ -11,7 +11,7 @@ export const UnlikeAnyTool = () => {
             Industrial Precision. <br /> Environmental Sovereignty.
           </h2>
           <p className='mx-auto mb-12 max-w-[60rem] text-lg text-primary-text md:text-xl'>
-            Bio-H2 MillSync isn't just a dashboard—it&apos;s the digital backbone for 
+            Bio-H2 MillSync isn&apos;t just a dashboard—it&apos;s the digital backbone for 
             India&apos;s decentralized Green Hydrogen infrastructure.
           </p>
         </div>

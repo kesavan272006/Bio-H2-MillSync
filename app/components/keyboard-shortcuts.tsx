@@ -26,31 +26,12 @@ export const KeyboardShortcuts = () => {
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const firstRender = useRef<boolean>(true);
 
-  const scheduleTimeout = () =>
-    (timeoutRef.current = setTimeout(goToNextShortcut, 2500));
-
-  useEffect(() => {
-    if (firstRender.current) {
-      highlightShortcut(0);
-      return;
-    }
-    scheduleTimeout();
-    return () => {
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    };
-  }, [activeIndex]);
-
-  const goToNextShortcut = useCallback(() => {
-    highlightShortcut((activeIndex + 1) % shortcuts.length);
-  }, [activeIndex]);
-
+  // 1. Wrap highlightShortcut in useCallback to stabilize the reference
   const highlightShortcut = useCallback((index: number) => {
     if (!sliderRef.current) return;
 
-    // clears any existing timeouts which are currenly active
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
 
-    // selects the button element which has the given index
     const currentShortcut = sliderRef.current.querySelector<HTMLButtonElement>(
       `[data-index="${index}"]`
     );
@@ -68,7 +49,6 @@ export const KeyboardShortcuts = () => {
       .querySelectorAll('.active')
       .forEach((elem) => elem.classList.remove('active'));
 
-    // gets the keys based on the data attributed of the currently selected button element
     const keys = currentShortcut.dataset.keys || '';
     const keyList = keys.split('');
 
@@ -78,19 +58,41 @@ export const KeyboardShortcuts = () => {
     keyElements.forEach((elem) => elem?.classList.add('active'));
 
     setActiveIndex(index);
+  }, []);
+
+  // 2. Wrap scheduleTimeout in useCallback
+  const scheduleTimeout = useCallback(() => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    
+    timeoutRef.current = setTimeout(() => {
+      highlightShortcut((activeIndex + 1) % shortcuts.length);
+    }, 2500);
+  }, [activeIndex, highlightShortcut]);
+
+  // 3. Updated useEffect with all necessary dependencies
+  useEffect(() => {
     if (firstRender.current) {
+      highlightShortcut(0);
       firstRender.current = false;
       scheduleTimeout();
+      return;
     }
-  }, []);
+
+    scheduleTimeout();
+
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, [activeIndex, highlightShortcut, scheduleTimeout]);
 
   const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    highlightShortcut(Number(e.currentTarget.dataset.index));
+    const index = Number(e.currentTarget.dataset.index);
+    highlightShortcut(index);
   };
 
   return (
-    <div className='-mt-16 w-full'>
+    <div className='-mt-16 w-full px-4 md:px-0'>
       <div
         ref={keyboardWrapperRef}
         className='keybord-mask pointer-events-none w-[200%] select-none md:w-full'
