@@ -26,7 +26,7 @@ export const HomePageHero = () => {
         Orchestrating IISc-patented reactors for maximum purity and farmer profit.
       </HeroSubtitle>
       <div className='animate-fade-in [--animation-delay:600ms] flex translate-y-[-1rem] items-center justify-center gap-4 opacity-0'>
-        <Button href='/dashboard' variant='primary' size='large'>
+        <Button href='/login' variant='primary' size='large'>
           Enter Command Center
           <ChevronRight className='ml-2 h-4 w-4 fill-white' />
         </Button>
