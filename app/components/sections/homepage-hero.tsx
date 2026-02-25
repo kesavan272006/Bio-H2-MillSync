@@ -30,7 +30,7 @@ export const HomePageHero = () => {
 
       {/* Subtitle */}
       <HeroSubtitle className='animate-fade-in [--animation-delay:400ms] translate-y-[-1rem] opacity-0'>
-        Pioneering India's Green Hydrogen Mission. <br className='hidden md:block' />
+        Pioneering India&apos;s Green Hydrogen Mission. <br className='hidden md:block' />
         Orchestrating IISc-patented reactors for maximum purity and farmer profit.
       </HeroSubtitle>
 

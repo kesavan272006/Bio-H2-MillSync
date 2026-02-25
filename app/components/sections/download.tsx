@@ -19,7 +19,7 @@ export const DownloadApp = () => {
 
       {/* Responsive Typography */}
       <h2 className='mb-8 text-center text-4xl md:text-9xl leading-[1.1] tracking-tighter text-white'>
-        Powering India's Future. <br className='hidden md:block' /> 
+        Powering India&apos;s Future. <br className='hidden md:block' /> 
         Fueling Bharat Today.
       </h2>
 
